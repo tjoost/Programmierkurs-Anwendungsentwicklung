@@ -9,11 +9,12 @@ import java.util.Objects;
 public class Praktikum01 {
 
     public static void main(String[] args) {
-        RefinedPerson p1 = new RefinedPerson("John", "New York", "Main Street", "12345", "Johnny");
-        Person p2 = new Person("John", "New York", "Main Street", "12345");
-        RefinedPerson p3 = new RefinedPerson("John", "New York", "Main Street", "12345", "Johnny");
-        System.out.println(p1.equals(p2));
-        System.out.println(p1.equals(p3));
+        new Test();
+//        RefinedPerson p1 = new RefinedPerson("John", "New York", "Main Street", "12345", "Johnny");
+//        Person p2 = new Person("John", "New York", "Main Street", "12345");
+//        RefinedPerson p3 = new RefinedPerson("John", "New York", "Main Street", "12345", "Johnny");
+//        System.out.println(p1.equals(p2));
+//        System.out.println(p1.equals(p3));
     }
 
 }
@@ -59,6 +60,7 @@ class Rectangle implements Geometry {
     public double berechneFlaeche() {
         return hoehe * breite;
     }
+
 }
 
 class Text {
@@ -79,6 +81,14 @@ class Circle implements Geometry {
     public int radius;
 
     @Override
+    public String toString() {
+        return "Circle{" +
+                "hash=" + hashCode() +
+                ", radius=" + radius +
+                '}';
+    }
+
+    @Override
     public double berechneUmfang() {
         return 2 * Math.PI * radius;
     }
@@ -87,6 +97,7 @@ class Circle implements Geometry {
     public double berechneFlaeche() {
         return Math.PI * radius * radius;
     }
+
 }
 
 interface Geometry {
@@ -108,13 +119,7 @@ class Test {
                 new Circle(4),
         };
         for (Geometry g : array) {
-            if(g instanceof Rectangle r) {
-                System.out.println("r.hoehe = " + r.hoehe);
-                System.out.println("r.breite = " + r.breite);
-            }
-            if(g instanceof Circle c) {
-                System.out.println("c.radius = " + c.radius);
-            }
+            System.out.println(g.toString());
 
             System.out.println("g.berechneUmfang() = " + g.berechneUmfang());
             System.out.println("g.berechneFlaeche() = " + g.berechneFlaeche());
