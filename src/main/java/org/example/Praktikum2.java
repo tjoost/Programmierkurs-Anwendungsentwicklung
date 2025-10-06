@@ -238,4 +238,10 @@ class Testklasse2 {
             }
         }
     }
+
+    public static <T extends Nahrungsmittel> void haushaltsbuch(T produkt, int menge) {
+        double gesamtPreis = produkt.getPreis() * menge;
+        System.out.println("Das Produkt " + produkt.getName() + " in der Menge "
+                + menge + " hat den Preis " + gesamtPreis + " Euro.");
+    }
 }
