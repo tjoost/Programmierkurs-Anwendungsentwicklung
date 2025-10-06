@@ -62,6 +62,17 @@ class Kaese extends Nahrungsmittel {
         super(name, preis);
     }
 }
+class Frischkaese extends Kaese {
+    public Frischkaese(String name, float preis) {
+        super(name, preis);
+    }
+}
+class Superfrischkaese extends Frischkaese {
+
+    public Superfrischkaese(String name, float preis) {
+        super(name, preis);
+    }
+}
 class Einkaufswagen<T extends Nahrungsmittel> {
     private Nahrungsmittel[] produkte;
 
@@ -98,7 +109,7 @@ class Testklasse2 {
         var brot = new Brot("Brot", 1.23F);
         var kaese = new Kaese("Käse", 5);
         var wurst = new Wurst("Wurst", 1.5F);
-        var einkaufswagen = new Einkaufswagen<Nahrungsmittel>();
+        /*var einkaufswagen = new Einkaufswagen<Nahrungsmittel>();
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -134,6 +145,96 @@ class Testklasse2 {
                     break;
                 case 3:
                     return;
+            }
+        }*/
+        var brotWagen = new Einkaufswagen<Brot>();
+        var kaeseWagen = new Einkaufswagen<Kaese>();
+        var frischkaeseWagen = new Einkaufswagen<Frischkaese>();
+
+        var frischkaese = new Frischkaese("Frischkäse", 1.5F);
+        var superfrischkaese = new Superfrischkaese("Superfrischkäse", 2.5F);
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Was möchtest du tun?");
+            System.out.println("1. Produkt hinzufügen");
+            System.out.println("2. Einkaufswagen ausgeben");
+            System.out.println("3. Beenden");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    boolean adding = true;
+                    while (adding) {
+                        System.out.println("Zu welchem Einkaufswagen möchtest du ein Produkt hinzufügen?");
+                        System.out.println("1. Brot-Wagen");
+                        System.out.println("2. Käse-Wagen");
+                        System.out.println("3. Frischkäse-Wagen");
+                        System.out.println("0. Zurück");
+                        int wagen = scanner.nextInt();
+                        switch (wagen) {
+                            case 1:
+                                brotWagen.hinzufuegen(brot);
+                                System.out.println("Brot hinzugefügt.");
+                                break;
+                            case 2:
+                                kaeseWagen.hinzufuegen(kaese);
+                                System.out.println("Käse hinzugefügt.");
+                                break;
+                            case 3:
+                                System.out.println("Welchen Frischkäse möchtest du hinzufügen?");
+                                System.out.println("1. Normaler Frischkäse");
+                                System.out.println("2. Superfrischkäse");
+                                int fkOption = scanner.nextInt();
+                                if (fkOption == 1) {
+                                    frischkaeseWagen.hinzufuegen(frischkaese);
+                                    System.out.println("Frischkäse hinzugefügt.");
+                                } else if (fkOption == 2) {
+                                    frischkaeseWagen.hinzufuegen(superfrischkaese);
+                                    System.out.println("Superfrischkäse hinzugefügt.");
+                                } else {
+                                    System.out.println("Ungültige Eingabe.");
+                                }
+                                break;
+                            case 0:
+                                adding = false;
+                                break;
+                            default:
+                                System.out.println("Ungültige Eingabe.");
+                                break;
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Welchen Einkaufswagen möchtest du sehen?");
+                    System.out.println("1. Brot-Wagen");
+                    System.out.println("2. Käse-Wagen");
+                    System.out.println("3. Frischkäse-Wagen");
+                    System.out.println("0. Zurück");
+                    int ausgabe = scanner.nextInt();
+                    switch (ausgabe) {
+                        case 1:
+                            brotWagen.ausgeben();
+                            break;
+                        case 2:
+                            kaeseWagen.ausgeben();
+                            break;
+                        case 3:
+                            frischkaeseWagen.ausgeben();
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            System.out.println("Ungültige Eingabe.");
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Programm beendet.");
+                    return;
+                default:
+                    System.out.println("Ungültige Eingabe.");
             }
         }
     }
