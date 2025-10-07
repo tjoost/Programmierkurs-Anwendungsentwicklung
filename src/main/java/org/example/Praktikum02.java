@@ -20,21 +20,26 @@ class F {}
 
 
 
-class TestClass {
+class TestClass1 {
   public static void main(String[] args) {
-    TestClass.testCreate(new MyGenericClass<Object>());
+    testCreate(new MyGenericClass<Object>());
   }
   public static void testCreate(MyGenericClass<? super C> zeiger) {
     System.out.println("yes");
+  }
+  /*------------------------------------ AUFGABE 3 ------------------------------------*/
+  public static <T extends Nahrungsmittel> void haushaltsbuch(T produkt, int menge) {
+    float preis = produkt.getPreis() * menge;
+    System.out.println("Das Produkt " + produkt.getName() + " in der Menge " + menge + " hat den Gesamtpreis " + preis + " Euro.");
   }
 }
 
 /*------------------------------------ AUFGABE 2 ------------------------------------*/
 abstract class Nahrungsmittel {
   private String name;
-  private Float preis;
+  private float preis;
 
-  public Nahrungsmittel(String name, Float preis) {
+  public Nahrungsmittel(String name, float preis) {
     this.name = name;
     this.preis = preis;
   }
@@ -52,17 +57,17 @@ abstract class Nahrungsmittel {
 }
 
 class Wurst extends Nahrungsmittel{
-  public Wurst(String name, Float preis) {
+  public Wurst(String name, float preis) {
     super(name, preis);
   }
 }
 class Brot extends Nahrungsmittel{
-  public Brot(String name, Float preis) {
+  public Brot(String name, float preis) {
     super(name, preis);
   }
 }
 class Käse extends Nahrungsmittel{
-  public Käse(String name, Float preis) {
+  public Käse(String name, float preis) {
     super(name, preis);
   }
 }
@@ -72,6 +77,15 @@ class Einkaufswagen <T extends Nahrungsmittel> {
   private int count = 0;
 
   public void hinzufuegen(T produkt) {
+    if(count < 10) {
+      produkte = Arrays.copyOf(produkte, produkte.length + 1);
+      produkte[produkte.length - 1] = produkt;
+    } else {
+      System.out.println("Warenkorb ist voll");
+    }
+  }
+
+  public <T extends Frischkäse> void hinzufuegen(T produkt) {
     if(count < 10) {
       produkte = Arrays.copyOf(produkte, produkte.length + 1);
       produkte[produkte.length - 1] = produkt;
@@ -100,7 +114,13 @@ class TestClass2 {
   Einkaufswagen wagen = new Einkaufswagen<>();
   Einkaufswagen regal = new Einkaufswagen<>();
 
-  public static void main(String[] args) {
+  /*------------------------------------ AUFGABE 4 ------------------------------------*/
+
+  Einkaufswagen brotWagen = new Einkaufswagen<Brot>();
+  Einkaufswagen käseWagen = new Einkaufswagen<Käse>();
+  Einkaufswagen kühlWagen = new Einkaufswagen<Frischkäse>();
+
+    public static void main(String[] args) {
     TestClass2 tc = new TestClass2();
     tc.testCreate();
   }
@@ -136,4 +156,14 @@ class TestClass2 {
   }
 }
 
-
+/*------------------------------------ AUFGABE 4 ------------------------------------*/
+class Frischkäse extends Käse{
+  public Frischkäse(String name, float preis) {
+    super(name, preis);
+  }
+}
+class Superfrischkäse extends Käse{
+  public Superfrischkäse(String name, float preis) {
+    super(name, preis);
+  }
+}

@@ -98,10 +98,6 @@ class Einkaufswagen<T extends Nahrungsmittel> {
         }
     }
 
-    //TODO: Aufgabe 3?
-    /*public static void haushaltsbuch(T produkt, X menge) {
-
-    }*/
 }
 
 class Testklasse2 {
