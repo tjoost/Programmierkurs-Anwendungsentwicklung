@@ -1,9 +1,7 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Praktikum04 {
 
@@ -12,11 +10,28 @@ public class Praktikum04 {
     }
 
     private static void aufgabe3() {
+        List<List<Integer>> datenmatrix = new ArrayList<>(Arrays.asList(
+                new ArrayList<>(Arrays.asList(1, 1, 2, 2, 3)),
+                new ArrayList<>(Arrays.asList(2, 2, 2, 1, 1)),
+                new ArrayList<>(Arrays.asList(4, 5, 6, 5, 4))
+        ));
 
+
+        for (int i = 0; i < datenmatrix.size(); i++) {
+            List<Integer> daten = datenmatrix.get(i);
+            var frequencyMap = daten.stream()
+                    .collect(
+                            Collectors.groupingBy(
+                                    Integer::intValue,
+                                    Collectors.counting()
+                            )
+                    );
+            System.out.println("Häufigkeiten Merkmal " + i + ":");
+            frequencyMap.forEach((k, v) -> System.out.println(k + ": " + v));
+        }
     }
 
     private static void aufgabe2cont() {
-        // Ausgabe: nichts, inkompatible typen
         var a = new HashSet<>(Arrays.asList(1.0, 2.0));
         var b = new HashSet<>(Arrays.asList(1,2));
 
@@ -32,15 +47,15 @@ public class Praktikum04 {
 
         a = new HashSet<>(Arrays.asList(1.0, 2.0));
         b = new HashSet<>(Arrays.asList(1,2));
-        //Sets.printDurchschnitt(a, b);
+        SetsNumber.printDurchschnitt(a, b);
 
         a = new HashSet<>(Arrays.asList(1.0, 2.0));
         b = new HashSet<>(Arrays.asList(1,2));
-        //Sets.printVereinigung(a, b);
+        SetsNumber.printVereinigung(a, b);
 
         a = new HashSet<>(Arrays.asList(1.0, 2.0));
         b = new HashSet<>(Arrays.asList(1,2));
-        //Sets.printDifferenz(a, b);
+        SetsNumber.printDifferenz(a, b);
     }
 
     private static void aufgabe2() {
@@ -104,6 +119,36 @@ class Sets {
         a.removeAll(b);
         System.out.println("Differenz von A und B");
         for (Object o : a) {
+            System.out.println(o);
+        }
+    }
+}
+
+class SetsNumber {
+
+    public static void printDurchschnitt(Set<? extends Number> a, Set<? extends Number> b) {
+        Set<Number> copyA = new HashSet<>(a);
+        copyA.retainAll(b);
+        System.out.println("Durchschnitt von A und B");
+        for (Object o : copyA) {
+            System.out.println(o);
+        }
+    }
+
+    public static void printVereinigung(Set<? extends Number> a, Set<? extends Number> b) {
+        Set<Number> union = new HashSet<>(a);
+        union.addAll(b);
+        System.out.println("Vereinigung von A und B");
+        for (Object o : union) {
+            System.out.println(o);
+        }
+    }
+
+    public static void printDifferenz(Set<? extends Number> a, Set<? extends Number> b) {
+        Set<Number> diff = new HashSet<>(a);
+        diff.removeAll(b);
+        System.out.println("Differenz von A und B");
+        for (Object o : diff) {
             System.out.println(o);
         }
     }
