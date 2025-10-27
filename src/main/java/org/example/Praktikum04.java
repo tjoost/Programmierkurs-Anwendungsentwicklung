@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class Praktikum04 {
 
     public static void main(String[] args) {
-        aufgabe3();
+        aufgabe2cont();
     }
 
     private static void aufgabe3() {
@@ -45,17 +45,11 @@ public class Praktikum04 {
         }
 
 
-        a = new HashSet<>(Arrays.asList(1.0, 2.0));
-        b = new HashSet<>(Arrays.asList(1,2));
-        SetsNumber.printDurchschnitt(a, b);
+        Sets.printDurchschnitt(a, b);
 
-        a = new HashSet<>(Arrays.asList(1.0, 2.0));
-        b = new HashSet<>(Arrays.asList(1,2));
-        SetsNumber.printVereinigung(a, b);
+        Sets.printVereinigung(a, b);
 
-        a = new HashSet<>(Arrays.asList(1.0, 2.0));
-        b = new HashSet<>(Arrays.asList(1,2));
-        SetsNumber.printDifferenz(a, b);
+        Sets.printDifferenz(a, b);
     }
 
     private static void aufgabe2() {
@@ -72,16 +66,10 @@ public class Praktikum04 {
         }
 
 
-        a = new HashSet<>(Arrays.asList("a", "b", "c"));
-        b = new HashSet<>(Arrays.asList("b", "c", "d"));
         Sets.printDurchschnitt(a, b);
 
-        a = new HashSet<>(Arrays.asList("a", "b", "c"));
-        b = new HashSet<>(Arrays.asList("b", "c", "d"));
         Sets.printVereinigung(a, b);
 
-        a = new HashSet<>(Arrays.asList("a", "b", "c"));
-        b = new HashSet<>(Arrays.asList("b", "c", "d"));
         Sets.printDifferenz(a, b);
     }
 
@@ -99,56 +87,29 @@ public class Praktikum04 {
 
 class Sets {
 
-    public static <E> void printDurchschnitt(Set<E> a, Set<E> b) {
-        a.retainAll(b);
+    public static <E> void printDurchschnitt(Set<? extends E> a, Set<? extends E> b) {
+        var set = new HashSet<E>(a);
+        set.retainAll(b);
         System.out.println("Durchschnitt von A und B");
-        for (Object o : a) {
+        for (Object o : set) {
             System.out.println(o);
         }
     }
 
-    public static <E> void printVereinigung(Set<E> a, Set<E> b) {
-        a.addAll(b);
+    public static <E> void printVereinigung(Set<? extends E> a, Set<? extends E> b) {
+        var set = new HashSet<E>(a);
+        set.addAll(b);
         System.out.println("Vereinigung von A und B");
-        for (Object o : a) {
+        for (Object o : set) {
             System.out.println(o);
         }
     }
 
-    public static <E> void printDifferenz(Set<E> a, Set<E> b) {
-        a.removeAll(b);
+    public static <E> void printDifferenz(Set<? extends E> a, Set<? extends E> b) {
+        var set = new HashSet<E>(a);
+        set.removeAll(b);
         System.out.println("Differenz von A und B");
-        for (Object o : a) {
-            System.out.println(o);
-        }
-    }
-}
-
-class SetsNumber {
-
-    public static void printDurchschnitt(Set<? extends Number> a, Set<? extends Number> b) {
-        Set<Number> copyA = new HashSet<>(a);
-        copyA.retainAll(b);
-        System.out.println("Durchschnitt von A und B");
-        for (Object o : copyA) {
-            System.out.println(o);
-        }
-    }
-
-    public static void printVereinigung(Set<? extends Number> a, Set<? extends Number> b) {
-        Set<Number> union = new HashSet<>(a);
-        union.addAll(b);
-        System.out.println("Vereinigung von A und B");
-        for (Object o : union) {
-            System.out.println(o);
-        }
-    }
-
-    public static void printDifferenz(Set<? extends Number> a, Set<? extends Number> b) {
-        Set<Number> diff = new HashSet<>(a);
-        diff.removeAll(b);
-        System.out.println("Differenz von A und B");
-        for (Object o : diff) {
+        for (Object o : set) {
             System.out.println(o);
         }
     }
