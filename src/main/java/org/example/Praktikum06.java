@@ -1,5 +1,6 @@
 package org.example;
 
+import java.beans.Transient;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +43,8 @@ public class Praktikum06 {
     }
 
     static class Person implements Serializable {
-        private String name, passwort;
+        private String name;
+        private transient String passwort;
         private int alter;
 
         private Person bekanntePerson;
@@ -52,20 +54,6 @@ public class Praktikum06 {
             this.passwort = passwort;
             this.alter = alter;
             this.bekanntePerson = bekanntePerson;
-        }
-
-        @Serial
-        private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-            out.writeUTF(name);
-            out.writeInt(alter);
-            out.writeObject(bekanntePerson);
-        }
-
-        @Serial
-        private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-            name = in.readUTF();
-            alter = in.readInt();
-            bekanntePerson = (Person) in.readObject();
         }
 
         @Override
